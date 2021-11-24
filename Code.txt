@@ -1,0 +1,41 @@
+var points = []
+var slow = 0.005
+function setup() {
+  createCanvas(1920, 1080);
+  background (30)
+  angleMode(DEGREES)
+  noiseDetail(1)
+  
+  var density = 50
+
+  var space = 400 / density
+  
+  for (var x = 0; x < 1920; x += space) {
+    for (var y = 0; y < 1080; y += space) {
+      var p = createVector(x + random(-10, 10) , y + random( -10, 10))
+      points.push(p)
+    }
+  }
+}
+
+function draw() {
+ noStroke()
+
+  
+  for (var i = 0; i < points.length; i++) {
+    
+    var r = map(points[i].x, 0, 1920, 255, 70)
+        var g = map(points[i].x, 0, 1080, 20,255)
+            var b = map(points[i].x, 0, 1920, 255, 255)
+    
+      fill( r, g, b)
+    
+    var angle = map(noise(points[i].x * slow, points[i].y * slow), 0, 1, 0, 720)
+    
+    points[i].add (createVector(cos(angle), sin(angle)))
+    
+    
+    
+    ellipse (points[i].x, points[i].y, 0.5)
+  }
+}
